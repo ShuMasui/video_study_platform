@@ -1,8 +1,13 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:go_router/go_router.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+// Project imports:
 import '../screens/home_screen.dart';
 import '../screens/video_screen.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:go_router/go_router.dart';
 
 part 'routes/_home_screen_route_data.dart';
 part 'routes/_video_screen_route_data.dart';

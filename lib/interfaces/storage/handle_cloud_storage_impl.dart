@@ -1,10 +1,11 @@
-import 'dart:io';
-
-import 'package:firebase_storage/firebase_storage.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:video_study_platform/domains/repositories/handle_cloud_storage.dart';
 
-import 'package:path_provider/path_provider.dart';
+// Package imports:
+import 'package:firebase_storage/firebase_storage.dart';
+
+// Project imports:
+import 'package:video_study_platform/domains/repositories/handle_cloud_storage.dart';
 
 class HandleCloudStorageImpl extends HandleCloudStorage {
   HandleCloudStorageImpl(this.storage);

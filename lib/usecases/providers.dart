@@ -1,8 +1,11 @@
+// Package imports:
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+// Project imports:
 import 'package:video_study_platform/domains/repositories/handle_cloud_storage.dart';
-import 'package:video_study_platform/usecases/fetch_video_list.dart';
-import 'package:video_study_platform/usecases/fetch_video_data.dart';
 import 'package:video_study_platform/domains/repositories/providers.dart';
+import 'package:video_study_platform/usecases/fetch_video_data.dart';
+import 'package:video_study_platform/usecases/fetch_video_list.dart';
 
 part 'providers.g.dart';
 

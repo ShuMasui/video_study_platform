@@ -1,5 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:video_player/video_player.dart';
+
+// Project imports:
 import 'package:video_study_platform/interfaces/widgets/custom_seek_bar.dart';
 
 class VideoPlayerView extends StatelessWidget {

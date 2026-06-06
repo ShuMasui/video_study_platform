@@ -1,5 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
 import 'package:video_study_platform/adaptors/video_screen/video_notifier.dart';
 import 'package:video_study_platform/interfaces/router/app_router.dart';
 import 'package:video_study_platform/interfaces/widgets/video_control_panel.dart';

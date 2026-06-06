@@ -1,5 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:video_player/video_player.dart';
+
+// Project imports:
 import 'package:video_study_platform/interfaces/widgets/subtitle_display.dart';
 
 class VideoControlPanel extends StatelessWidget {

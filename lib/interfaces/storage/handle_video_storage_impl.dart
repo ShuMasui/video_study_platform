@@ -1,9 +1,13 @@
+// Dart imports:
 import 'dart:convert';
 
+// Package imports:
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:video_study_platform/domains/repositories/handle_video_storage.dart';
-import 'package:video_study_platform/domains/entities/video_meta_data.dart';
+
+// Project imports:
 import 'package:video_study_platform/domains/entities/subtitle_data.dart';
+import 'package:video_study_platform/domains/entities/video_meta_data.dart';
+import 'package:video_study_platform/domains/repositories/handle_video_storage.dart';
 
 class HandleVideoStorageImpl extends HandleVideoStorage {
   HandleVideoStorageImpl(this._prefs);
@@ -32,6 +36,7 @@ class HandleVideoStorageImpl extends HandleVideoStorage {
     await _prefs.setString(VIDEO_DATA_KEY, jsonEncode(json));
   }
 
+  @override
   Future<void> init() async {
     final VideoMetaData videoMetaData1 = VideoMetaData(
       title: 'This is the sample video.',

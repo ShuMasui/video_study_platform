@@ -1,7 +1,12 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:video_study_platform/adaptors/video_screen/video_notifier.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:video_player/video_player.dart';
+
+// Project imports:
+import 'package:video_study_platform/adaptors/video_screen/video_notifier.dart';
 
 class SubTitleDisplay extends ConsumerStatefulWidget {
   final String videoTitle;

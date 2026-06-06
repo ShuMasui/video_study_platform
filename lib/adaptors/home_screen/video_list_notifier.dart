@@ -1,4 +1,7 @@
+// Package imports:
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+// Project imports:
 import 'package:video_study_platform/domains/entities/video_meta_data.dart';
 import 'package:video_study_platform/usecases/providers.dart';
 

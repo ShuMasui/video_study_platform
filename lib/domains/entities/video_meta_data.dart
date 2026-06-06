@@ -1,4 +1,7 @@
+// Package imports:
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+// Project imports:
 import 'package:video_study_platform/domains/entities/subtitle_data.dart';
 
 part 'video_meta_data.freezed.dart';

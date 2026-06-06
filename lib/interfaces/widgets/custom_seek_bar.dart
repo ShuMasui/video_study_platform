@@ -1,5 +1,8 @@
-import 'package:video_player/video_player.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:video_player/video_player.dart';
 
 class CustomSeekBar extends VideoProgressIndicator {
   const CustomSeekBar(
