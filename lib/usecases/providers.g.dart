@@ -48,7 +48,7 @@ final class FetchVideoListProvider
   }
 }
 
-String _$fetchVideoListHash() => r'801f029887903702e298dd4963e9f0120d99399b';
+String _$fetchVideoListHash() => r'd5b0ba9305abef7b9dafebcd1e79f0ac200bfc84';
 
 @ProviderFor(fetchVideoData)
 final fetchVideoDataProvider = FetchVideoDataProvider._();
@@ -89,4 +89,4 @@ final class FetchVideoDataProvider
   }
 }
 
-String _$fetchVideoDataHash() => r'd4fe324ca348cf8952c459e4924fbcbd86361f43';
+String _$fetchVideoDataHash() => r'3f1123f24e99c881bd4ba79be6fc9cba73056f9d';

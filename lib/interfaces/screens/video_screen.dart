@@ -20,6 +20,8 @@ class _VideoScreenState extends ConsumerState<VideoScreen> {
     super.initState();
   }
 
+  bool _isOccuedError = false;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -27,6 +29,10 @@ class _VideoScreenState extends ConsumerState<VideoScreen> {
     ref.listen(videoControllerProvider(widget.videoTitle), (_, n) {
       if (n.hasError) {
         if (context.mounted) {
+          if (_isOccuedError) {
+            return;
+          }
+          _isOccuedError = true;
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -57,12 +63,19 @@ class _VideoScreenState extends ConsumerState<VideoScreen> {
       videoControllerProvider(widget.videoTitle),
     );
 
+    final isPortrait =
+        MediaQuery.of(context).size.height > MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: const Color(0xFF0F111E), // 深みのあるプレミアムなダークスペースカラー
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         scrolledUnderElevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+          onPressed: () => HomeScreenRouteData().go(context),
+        ),
         iconTheme: const IconThemeData(color: Colors.white),
         title: Text(
           widget.videoTitle,
@@ -75,23 +88,45 @@ class _VideoScreenState extends ConsumerState<VideoScreen> {
       body: SafeArea(
         child: Center(
           child: controllerState.when(
-            data: (controller) => Row(
-              children: [
-                // 左半分：動画プレイヤーとシークバー (分割Widget)
-                Expanded(
-                  flex: 3,
-                  child: VideoPlayerView(controller: controller),
-                ),
-                // 右半分：コントロールパネルと字幕 (分割Widget)
-                Expanded(
-                  flex: 2,
-                  child: VideoControlPanel(
-                    controller: controller,
-                    videoTitle: widget.videoTitle,
-                  ),
-                ),
-              ],
-            ),
+            data: (controller) {
+              if (isPortrait) {
+                return Column(
+                  children: [
+                    // プレイヤー部分はアスペクト比を維持して上に配置
+                    VideoPlayerView(controller: controller),
+                    // コントロールパネルを下の残りスペースに配置
+                    Expanded(
+                      child: VideoControlPanel(
+                        controller: controller,
+                        videoTitle: widget.videoTitle,
+                        isPortrait: true,
+                      ),
+                    ),
+                  ],
+                );
+              } else {
+                return Row(
+                  children: [
+                    // 左半分：動画プレイヤーとシークバー (分割Widget)
+                    Expanded(
+                      flex: 3,
+                      child: Column(
+                        children: [VideoPlayerView(controller: controller)],
+                      ),
+                    ),
+                    // 右半分：コントロールパネルと字幕 (分割Widget)
+                    Expanded(
+                      flex: 2,
+                      child: VideoControlPanel(
+                        controller: controller,
+                        videoTitle: widget.videoTitle,
+                        isPortrait: false,
+                      ),
+                    ),
+                  ],
+                );
+              }
+            },
             error: (e, st) => CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(
                 theme.colorScheme.secondary,

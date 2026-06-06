@@ -8,6 +8,7 @@ class App extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
+      title: '動画教材ライブラリー',
       routerConfig: ref.watch(routerProvider),
       theme: ThemeData(
         useMaterial3: true,

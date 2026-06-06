@@ -9,43 +9,98 @@ part of 'providers.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(handleStorage)
-final handleStorageProvider = HandleStorageProvider._();
+@ProviderFor(handleVideoStorage)
+final handleVideoStorageProvider = HandleVideoStorageProvider._();
 
-final class HandleStorageProvider
-    extends $FunctionalProvider<HandleStorage, HandleStorage, HandleStorage>
-    with $Provider<HandleStorage> {
-  HandleStorageProvider._()
+final class HandleVideoStorageProvider
+    extends
+        $FunctionalProvider<
+          HandleVideoStorage,
+          HandleVideoStorage,
+          HandleVideoStorage
+        >
+    with $Provider<HandleVideoStorage> {
+  HandleVideoStorageProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'handleStorageProvider',
+        name: r'handleVideoStorageProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$handleStorageHash();
+  String debugGetCreateSourceHash() => _$handleVideoStorageHash();
 
   @$internal
   @override
-  $ProviderElement<HandleStorage> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<HandleVideoStorage> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
-  HandleStorage create(Ref ref) {
-    return handleStorage(ref);
+  HandleVideoStorage create(Ref ref) {
+    return handleVideoStorage(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(HandleStorage value) {
+  Override overrideWithValue(HandleVideoStorage value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<HandleStorage>(value),
+      providerOverride: $SyncValueProvider<HandleVideoStorage>(value),
     );
   }
 }
 
-String _$handleStorageHash() => r'3f27c0503857f42ada6bc577c7e682881205dd91';
+String _$handleVideoStorageHash() =>
+    r'1703367eea590a2ba82ea1a48d54a3ee23f69930';
+
+@ProviderFor(handleCloudStorage)
+final handleCloudStorageProvider = HandleCloudStorageProvider._();
+
+final class HandleCloudStorageProvider
+    extends
+        $FunctionalProvider<
+          HandleCloudStorage,
+          HandleCloudStorage,
+          HandleCloudStorage
+        >
+    with $Provider<HandleCloudStorage> {
+  HandleCloudStorageProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'handleCloudStorageProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$handleCloudStorageHash();
+
+  @$internal
+  @override
+  $ProviderElement<HandleCloudStorage> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  HandleCloudStorage create(Ref ref) {
+    return handleCloudStorage(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(HandleCloudStorage value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<HandleCloudStorage>(value),
+    );
+  }
+}
+
+String _$handleCloudStorageHash() =>
+    r'85afad7b2d3f5da702af5197581dbdd42f6bb0ee';

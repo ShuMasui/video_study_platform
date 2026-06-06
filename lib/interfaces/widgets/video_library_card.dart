@@ -51,10 +51,14 @@ class VideoLibraryCard extends StatelessWidget {
             final video = videos[index];
             return Container(
               decoration: BoxDecoration(
-                color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white,
+                color: isDark
+                    ? Colors.white.withValues(alpha: 0.05)
+                    : Colors.white,
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
-                  color: isDark ? Colors.white.withValues(alpha: 0.1) : Colors.black.withValues(alpha: 0.05),
+                  color: isDark
+                      ? Colors.white.withValues(alpha: 0.1)
+                      : Colors.black.withValues(alpha: 0.05),
                   width: 1,
                 ),
                 boxShadow: [
@@ -71,12 +75,13 @@ class VideoLibraryCard extends StatelessWidget {
                 child: InkWell(
                   borderRadius: BorderRadius.circular(16),
                   onTap: () {
-                    VideoScreenRouteData(
-                      videoTitle: video.title,
-                    ).go(context);
+                    VideoScreenRouteData(videoTitle: video.title).go(context);
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 12.0,
+                    ),
                     child: Row(
                       children: [
                         Container(
@@ -94,7 +99,9 @@ class VideoLibraryCard extends StatelessWidget {
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
-                                color: theme.colorScheme.primary.withValues(alpha: 0.3),
+                                color: theme.colorScheme.primary.withValues(
+                                  alpha: 0.3,
+                                ),
                                 blurRadius: 8,
                                 offset: const Offset(0, 3),
                               ),
@@ -138,7 +145,9 @@ class VideoLibraryCard extends StatelessWidget {
                                       style: TextStyle(
                                         fontSize: 11,
                                         fontWeight: FontWeight.w600,
-                                        color: theme.colorScheme.onPrimaryContainer,
+                                        color: theme
+                                            .colorScheme
+                                            .onPrimaryContainer,
                                       ),
                                     ),
                                   ),
@@ -149,7 +158,9 @@ class VideoLibraryCard extends StatelessWidget {
                         ),
                         Icon(
                           Icons.chevron_right_rounded,
-                          color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+                          color: theme.colorScheme.onSurface.withValues(
+                            alpha: 0.4,
+                          ),
                         ),
                       ],
                     ),
@@ -212,7 +223,9 @@ class VideoLibraryCard extends StatelessWidget {
           ),
         ],
         border: Border.all(
-          color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.black.withValues(alpha: 0.03),
+          color: isDark
+              ? Colors.white.withValues(alpha: 0.08)
+              : Colors.black.withValues(alpha: 0.03),
           width: 1,
         ),
       ),
@@ -220,7 +233,12 @@ class VideoLibraryCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 24, right: 24, top: 24, bottom: 8),
+            padding: const EdgeInsets.only(
+              left: 24,
+              right: 24,
+              top: 24,
+              bottom: 8,
+            ),
             child: Row(
               children: [
                 Container(
@@ -236,7 +254,7 @@ class VideoLibraryCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 16),
                 Text(
-                  '動画ライブラリ',
+                  '動画教材ライブラリ',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

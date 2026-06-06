@@ -1,0 +1,57 @@
+{
+  "hosting": {
+    "public": "build/web/",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "storage": {
+    "rules": "storage.rules"
+  },
+  "emulators": {
+    "storage": {
+      "port": 9199
+    },
+    "ui": {
+      "enabled": true
+    },
+    "singleProjectMode": true
+  },
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "video-study-platform",
+          "appId": "1:491045312453:android:7c58ff5b3160aff0639dac",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "video-study-platform",
+          "appId": "1:491045312453:ios:9f099ea0ee9feab4639dac",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "video-study-platform",
+          "configurations": {
+            "android": "1:491045312453:android:7c58ff5b3160aff0639dac",
+            "ios": "1:491045312453:ios:9f099ea0ee9feab4639dac",
+            "web": "1:491045312453:web:debe587f78516495639dac"
+          }
+        }
+      }
+    }
+  }
+}

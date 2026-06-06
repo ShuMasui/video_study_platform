@@ -1,23 +1,30 @@
-import 'package:video_study_platform/domains/repositories/handle_storage.dart';
+import 'package:video_study_platform/domains/repositories/handle_cloud_storage.dart';
+import 'package:video_study_platform/domains/repositories/handle_video_storage.dart';
 import 'package:video_study_platform/domains/entities/video_meta_data.dart';
 
 class FetchVideoData {
-  final HandleStorage handleStorage;
+  final HandleVideoStorage handleStorage;
+  final HandleCloudStorage handleCloudStorage;
 
-  FetchVideoData(this.handleStorage);
+  FetchVideoData(this.handleStorage, this.handleCloudStorage);
 
   Future<VideoMetaData?> loadVideoMetaData(String videoTitle) async {
-    final json = await handleStorage.load('video_meta_data');
+    final json = await handleStorage.load();
     if (json == null) {
       return null;
     }
 
-    final List<dynamic> list = json['video_meta_data'];
+    final List<dynamic> list = json[handleStorage.getVideoDataKey];
 
     final VideoMetaData? data = list
         .map((e) => VideoMetaData.fromJson(e))
         .firstOrNull;
 
-    return data;
+    if (data != null) {
+      final link = await handleCloudStorage.getDownloadLink(data.videoUrl);
+      return data.copyWith(videoUrl: link);
+    } else {
+      return null;
+    }
   }
 }

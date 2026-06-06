@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "491045312453",
+    "project_id": "video-study-platform",
+    "storage_bucket": "video-study-platform.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491045312453:android:7c58ff5b3160aff0639dac",
+        "android_client_info": {
+          "package_name": "com.example.video_study_platform"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK7lwetY0mZIFHQAhr22OAhd5_F-SnUIc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

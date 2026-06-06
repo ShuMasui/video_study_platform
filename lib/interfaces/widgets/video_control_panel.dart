@@ -5,11 +5,13 @@ import 'package:video_study_platform/interfaces/widgets/subtitle_display.dart';
 class VideoControlPanel extends StatelessWidget {
   final VideoPlayerController controller;
   final String videoTitle;
+  final bool isPortrait;
 
   const VideoControlPanel({
     super.key,
     required this.controller,
     required this.videoTitle,
+    this.isPortrait = false,
   });
 
   Widget _buildControlButton({
@@ -41,11 +43,7 @@ class VideoControlPanel extends StatelessWidget {
               onTap: onPressed,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Icon(
-                  icon,
-                  color: Colors.white,
-                  size: 32,
-                ),
+                child: Icon(icon, color: Colors.white, size: 32),
               ),
             ),
           ),
@@ -67,8 +65,90 @@ class VideoControlPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
+    final subtitleSection = Expanded(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.subtitles_rounded,
+                  color: theme.colorScheme.secondary,
+                  size: 20,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  '字幕ディスプレイ',
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.5),
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.8,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Expanded(
+              child: SubTitleDisplay(controller: controller, videoTitle: videoTitle),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    final controlSection = Column(
+      children: [
+        Text(
+          '動画コントロール',
+          style: TextStyle(
+            color: Colors.white.withValues(alpha: 0.5),
+            fontSize: 13,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildControlButton(
+              context: context,
+              icon: Icons.play_arrow_rounded,
+              label: '再生',
+              onPressed: () => controller.play(),
+              gradient: LinearGradient(
+                colors: [
+                  theme.colorScheme.primary,
+                  theme.colorScheme.secondary,
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            const SizedBox(width: 32),
+            _buildControlButton(
+              context: context,
+              icon: Icons.pause_rounded,
+              label: '一時停止',
+              onPressed: () => controller.pause(),
+              gradient: LinearGradient(
+                colors: [Colors.grey[850]!, Colors.grey[700]!],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+
     return Padding(
-      padding: const EdgeInsets.only(top: 24, bottom: 24, right: 24),
+      padding: isPortrait
+          ? const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0)
+          : const EdgeInsets.only(top: 24, bottom: 24, right: 24),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white.withValues(alpha: 0.03),
@@ -87,88 +167,9 @@ class VideoControlPanel extends StatelessWidget {
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.subtitles_rounded,
-                        color: theme.colorScheme.secondary,
-                        size: 20,
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        '字幕ディスプレイ',
-                        style: TextStyle(
-                          color: Colors.white.withValues(alpha: 0.5),
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.8,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  SubTitleDisplay(
-                    controller: controller,
-                    videoTitle: videoTitle,
-                  ),
-                ],
-              ),
-            ),
-            Column(
-              children: [
-                Text(
-                  '動画コントロール',
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.5),
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.8,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildControlButton(
-                      context: context,
-                      icon: Icons.play_arrow_rounded,
-                      label: '再生',
-                      onPressed: () => controller.play(),
-                      gradient: LinearGradient(
-                        colors: [
-                          theme.colorScheme.primary,
-                          theme.colorScheme.secondary,
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                    ),
-                    const SizedBox(width: 32),
-                    _buildControlButton(
-                      context: context,
-                      icon: Icons.pause_rounded,
-                      label: '一時停止',
-                      onPressed: () => controller.pause(),
-                      gradient: LinearGradient(
-                        colors: [
-                          Colors.grey[850]!,
-                          Colors.grey[700]!,
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
+          children: isPortrait
+              ? [controlSection, subtitleSection]
+              : [subtitleSection, controlSection],
         ),
       ),
     );
