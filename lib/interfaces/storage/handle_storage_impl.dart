@@ -30,7 +30,7 @@ class HandleStorageImpl extends HandleStorage {
   Future<void> init() async {
     final String key = 'video_meta_data';
     final VideoMetaData videoMetaData1 = VideoMetaData(
-      title: 'This is the sample video',
+      title: 'This is the sample video.',
       videoUrl:
           'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
       duration: Duration(seconds: 4),

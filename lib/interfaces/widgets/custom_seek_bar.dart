@@ -1,8 +1,5 @@
-import 'dart:math' as math;
-
 import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart' as platform_interface;
 
 class CustomSeekBar extends VideoProgressIndicator {
   const CustomSeekBar(
@@ -17,8 +14,6 @@ class CustomSeekBar extends VideoProgressIndicator {
 
 class _CustomSeekBarState extends State<CustomSeekBar> {
   VideoPlayerController get controller => widget.controller;
-
-  VideoProgressColors get colors => widget.colors;
 
   void _didUpdateControllerValue() {
     setState(() {});
@@ -36,37 +31,78 @@ class _CustomSeekBarState extends State<CustomSeekBar> {
     super.dispose();
   }
 
+  String _formatDuration(Duration duration) {
+    final minutes = duration.inMinutes.toString().padLeft(2, '0');
+    final seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
+    return '$minutes:$seconds';
+  }
+
   @override
   Widget build(BuildContext context) {
-    final Widget progressIndicator;
-    if (controller.value.isInitialized) {
-      final int duration = controller.value.duration.inMilliseconds;
-      final int position = controller.value.position.inMilliseconds;
-
-      final SliderTheme slider = SliderTheme(
-        data: SliderTheme.of(context).copyWith(
-          // 丸（サム）の形状やサイズ、色をカスタマイズ
-          thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8.0),
-          activeTrackColor: Colors.red,
-          inactiveTrackColor: Colors.grey,
-          thumbColor: Colors.red,
-          trackHeight: 4.0,
-        ),
-        child: Slider(
-          value: position.clamp(0, duration).toDouble(),
-          min: 0.0,
-          max: duration > 0 ? duration.toDouble() : 1.0,
-          onChanged: (double value) {
-            controller.seekTo(Duration(milliseconds: value.toInt()));
-          },
-        ),
-      );
-
-      progressIndicator = slider;
-    } else {
-      progressIndicator = SizedBox.shrink();
+    if (!controller.value.isInitialized) {
+      return const SizedBox.shrink();
     }
 
-    return progressIndicator;
+    final theme = Theme.of(context);
+    final int durationMs = controller.value.duration.inMilliseconds;
+    final int positionMs = controller.value.position.inMilliseconds;
+
+    final Duration duration = controller.value.duration;
+    final Duration position = controller.value.position;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SliderTheme(
+            data: SliderTheme.of(context).copyWith(
+              trackHeight: 4.0,
+              trackShape: const RoundedRectSliderTrackShape(),
+              activeTrackColor: theme.colorScheme.secondary,
+              inactiveTrackColor: Colors.white24,
+              thumbColor: theme.colorScheme.secondary,
+              thumbShape: const RoundSliderThumbShape(
+                enabledThumbRadius: 6.0,
+              ),
+              overlayColor: theme.colorScheme.secondary.withValues(alpha: 0.24),
+              overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+            ),
+            child: Slider(
+              value: positionMs.clamp(0, durationMs).toDouble(),
+              min: 0.0,
+              max: durationMs > 0 ? durationMs.toDouble() : 1.0,
+              onChanged: (double value) {
+                controller.seekTo(Duration(milliseconds: value.toInt()));
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  _formatDuration(position),
+                  style: const TextStyle(
+                    color: Colors.white70,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                Text(
+                  _formatDuration(duration),
+                  style: const TextStyle(
+                    color: Colors.white70,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

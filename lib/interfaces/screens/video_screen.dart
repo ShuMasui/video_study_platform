@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:video_player/video_player.dart';
 import 'package:video_study_platform/adaptors/video_screen/video_notifier.dart';
 import 'package:video_study_platform/interfaces/router/app_router.dart';
-import 'package:video_study_platform/interfaces/widgets/custom_seek_bar.dart';
-import 'package:video_study_platform/interfaces/widgets/subtitle_display.dart';
+import 'package:video_study_platform/interfaces/widgets/video_control_panel.dart';
+import 'package:video_study_platform/interfaces/widgets/video_player_view.dart';
 
 class VideoScreen extends ConsumerStatefulWidget {
   const VideoScreen({super.key, required this.videoTitle});
@@ -24,13 +22,24 @@ class _VideoScreenState extends ConsumerState<VideoScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     ref.listen(videoControllerProvider(widget.videoTitle), (_, n) {
       if (n.hasError) {
         if (context.mounted) {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              title: const Text('動画再生のエラーが発生しました'),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              title: const Row(
+                children: [
+                  Icon(Icons.error_outline, color: Colors.red),
+                  SizedBox(width: 8),
+                  Text('動画再生エラー'),
+                ],
+              ),
               content: Text(n.error.toString()),
               actions: [
                 ElevatedButton(
@@ -49,9 +58,11 @@ class _VideoScreenState extends ConsumerState<VideoScreen> {
     );
 
     return Scaffold(
-      backgroundColor: Colors.black87,
+      backgroundColor: const Color(0xFF0F111E), // 深みのあるプレミアムなダークスペースカラー
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        scrolledUnderElevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),
         title: Text(
           widget.videoTitle,
@@ -60,47 +71,38 @@ class _VideoScreenState extends ConsumerState<VideoScreen> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        elevation: 0,
       ),
-      body: Center(
-        child: controllerState.when(
-          data: (controller) => Row(
-            children: [
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    AspectRatio(
-                      aspectRatio: controller.value.aspectRatio,
-                      child: VideoPlayer(controller),
-                    ),
-                    CustomSeekBar(controller, allowScrubbing: true),
-                  ],
+      body: SafeArea(
+        child: Center(
+          child: controllerState.when(
+            data: (controller) => Row(
+              children: [
+                // 左半分：動画プレイヤーとシークバー (分割Widget)
+                Expanded(
+                  flex: 3,
+                  child: VideoPlayerView(controller: controller),
                 ),
-              ),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SubTitleDisplay(
-                      controller: controller,
-                      videoTitle: widget.videoTitle,
-                    ),
-                    IconButton(
-                      onPressed: () => controller.play(),
-                      icon: Icon(Icons.play_arrow),
-                    ),
-                    IconButton(
-                      onPressed: () => controller.pause(),
-                      icon: Icon(Icons.pause),
-                    ),
-                  ],
+                // 右半分：コントロールパネルと字幕 (分割Widget)
+                Expanded(
+                  flex: 2,
+                  child: VideoControlPanel(
+                    controller: controller,
+                    videoTitle: widget.videoTitle,
+                  ),
                 ),
+              ],
+            ),
+            error: (e, st) => CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(
+                theme.colorScheme.secondary,
               ),
-            ],
+            ),
+            loading: () => CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(
+                theme.colorScheme.secondary,
+              ),
+            ),
           ),
-          error: (e, st) => CircularProgressIndicator(),
-          loading: () => CircularProgressIndicator(),
         ),
       ),
     );
