@@ -19,6 +19,7 @@ class FetchVideoData {
 
     final VideoMetaData? data = list
         .map((e) => VideoMetaData.fromJson(e))
+        .where((e) => e.title == videoTitle)
         .firstOrNull;
 
     if (data != null) {
