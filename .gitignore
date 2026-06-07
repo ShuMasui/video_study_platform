@@ -44,4 +44,4 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-_init_video_data.dart
+lib/interfaces/storage/_init_video_data.dart
