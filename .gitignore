@@ -45,3 +45,10 @@ app.*.map.json
 /android/app/release
 
 lib/interfaces/storage/_init_video_data.dart
+
+.metadata
+.firebaserc
+cors.json
+firebase.json
+skills-lock.json
+storage.rules
