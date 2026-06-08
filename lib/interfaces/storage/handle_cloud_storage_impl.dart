@@ -22,7 +22,7 @@ class HandleCloudStorageImpl extends HandleCloudStorage {
       return downloadLink;
     } catch (e) {
       debugPrint(e.toString());
-      throw Exception('ダウンロードURLの発行に失敗しました\n${e.toString()}');
+      throw Exception('ダウンロードURLの発行に失敗しました');
     }
   }
 }

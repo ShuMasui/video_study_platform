@@ -59,6 +59,6 @@ Future<String> subTitle(Ref ref, String videoTitle) async {
           .text;
     }
   } catch (e, st) {
-    throw Exception('$e\n$st');
+    throw Exception('$e');
   }
 }

@@ -28,6 +28,10 @@ Future<void> setUpLocator() async {
   // FirebaseStorageのシングルトン注入
   locator.registerSingleton<FirebaseStorage>(FirebaseStorage.instance);
 
+  // FirebaseStrageのインスタンスのダウンロード時のマックスリトライ時の動作を変更
+  // locator<FirebaseStorage>().setMaxOperationRetryTime(Duration(seconds: 5));
+  locator<FirebaseStorage>().setMaxDownloadRetryTime(Duration(seconds: 5));
+
   // HandleCloudStorage リポジトリの注入
   locator.registerSingleton<HandleCloudStorage>(
     HandleCloudStorageImpl(locator<FirebaseStorage>()),
