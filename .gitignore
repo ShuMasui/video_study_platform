@@ -52,3 +52,4 @@ cors.json
 firebase.json
 skills-lock.json
 storage.rules
+lib/firebase_options.dart
