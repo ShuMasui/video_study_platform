@@ -58,7 +58,7 @@ Future<String> subTitle(Ref ref, String videoTitle) async {
           .lastWhere((e) => e.start <= controller.value.position)
           .text;
     }
-  } catch (e, st) {
-    throw Exception('$e\n$st');
+  } catch (e) {
+    throw Exception('$e');
   }
 }

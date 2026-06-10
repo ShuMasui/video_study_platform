@@ -39,6 +39,7 @@ class _VideoScreenState extends ConsumerState<VideoScreen> {
           }
           _isOccuedError = true;
           showDialog(
+            barrierDismissible: false,
             context: context,
             builder: (context) => AlertDialog(
               shape: RoundedRectangleBorder(
